@@ -28,7 +28,7 @@ Some initial views about our data:
     <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image3.png" alt="image3" width="1000">
 </a>
   
-* All `churn` customers  distribute across **5** of our sale channel. The `MISSING` channel means no information available **image4**
+* All `churn` customers  distribute across **5** of our sale channel. The `MISSING` channel means no information available.
 
   <a href="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image4.png" target="_blank">
     <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image4.png" alt="image4" width="1000">
@@ -81,7 +81,7 @@ Here is the final correlation heatmap:
 ## Modeling
 ### Process:
 After the feature engineering process, we are following this pipeline:
-* Train-split text: We do 70-30 train-test split
+* Train-test split: We do 70-30 train-test split
 * Standardize features: This step is necessary, as even though consumptions/price fields are transformed, there is still a lot of variation.
 * Modeling: We are using a Random Forest Classifier. We are able to achieve a `91%` accuracy score on 10-fold cross-validation and `90%` on the test data.
   * We achieve `75%` on precision, which is how well we can label `churn` customers, and `97.8%` on recall, which indicates how well we retrieved `churn` customers.
