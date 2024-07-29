@@ -84,7 +84,7 @@ After the feature engineering process, we are following this pipeline:
 * Train-test split: We do 70-30 train-test split
 * Standardize features: This step is necessary, as even though consumptions/price fields are transformed, there is still a lot of variation.
 * Modeling: We are using a Random Forest Classifier. We are able to achieve a `91%` accuracy score on 10-fold cross-validation and `90%` on the test data.
-  * We achieve `75%` on precision, which is how well we can label `churn` customers, and `97.8%` on recall, which indicates how well we retrieved `churn` customers.
+  * We achieve `75%` on precision, which is how well we can label `churn` customers.
   * In this task, I believe `recall` is a better metric to evaluate our model, as it does not hurt to misclassify `non-churn` customers to `churn` customers.
   * F1-score is `0.0402`, which is super good.
 * Feature Importance: After training our model, we can find the importance of each feature in helping the model correctly predict `churn.` The top 5 driving factors are:
@@ -100,7 +100,7 @@ After the feature engineering process, we are following this pipeline:
  
 ### Model optimization:
 The following approaches can be conducted to help improve our model:
-* **Feature Selection**: We can deliberately choose features that contribute a lot to our model in the above picture (`>=0.01`). This improves `precision` to `82.9%` but decreases `recall` to `96.7%`, which I think is worth the trade-off.
+* **Feature Selection**: We can deliberately choose features that contribute a lot to our model in the above picture (`>=0.01`). This improves `precision` to `82.9%`.
 * **PCA**: This method is relevant in reducing the dimension of our fields. With around `20-30` features, the space of `60` features can be almost `100%` explained.
 
   <a href="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image8.png" target="_blank">
