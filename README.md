@@ -16,7 +16,8 @@ Some initial views about our data:
     <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image1.png" alt="image1" width="300">
 </a>
 
-* The distribution of `churn` customers does not quite depend on whether they subscribed to gas or not, as they are pretty much the same 
+* The distribution of `churn` customers does not quite depend on whether they subscribed to gas or not, as they are pretty much the same
+
   <a href="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image2.png" target="_blank">
     <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image2.png" alt="image2" width="600">
 </a>
