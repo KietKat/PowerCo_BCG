@@ -10,12 +10,34 @@ PowerCo is observing a number of their customers unsubscribe from their service 
 
 ## Data Analysis
 Some initial views about our data:
-* The `churn` rate is about `9.7%` across 14,606 customers, which is quite high. **image1**
-* The distribution of `churn` customers does not quite depend on whether they subscribed to gas or not, as they are pretty much the same **image2**
-* All `churn` customers subscribed to less than **5** of our services **image3**
+* The `churn` rate is about `9.7%` across 14,606 customers, which is quite high.
+  
+   <a href="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image1.png" target="_blank">
+    <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image1.png" alt="image1" width="300">
+</a>
+
+* The distribution of `churn` customers does not quite depend on whether they subscribed to gas or not, as they are pretty much the same 
+  <a href="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image2.png" target="_blank">
+    <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image2.png" alt="image2" width="600">
+</a>
+
+* All `churn` customers subscribed to less than **5** of our services
+
+  <a href="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image3.png" target="_blank">
+    <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image3.png" alt="image3" width="1000">
+</a>
+  
 * All `churn` customers  distribute across **5** of our sale channel. The `MISSING` channel means no information available **image4**
 
-For features related to consumption and price, the plot is highly skewed and spread out because the values are too big. We can clean these data in the data engineering step. **image5** 
+  <a href="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image4.png" target="_blank">
+    <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image4.png" alt="image4" width="1000">
+</a>
+
+For features related to consumption and price, the plot is highly skewed and spread out because the values are too big. We can clean these data in the data engineering step.
+
+  <a href="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image5.png" target="_blank">
+    <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image5.png" alt="image3" width="800">
+</a>
 
 ## Feature Engineering
 ### Creating new features:
@@ -49,7 +71,11 @@ These columns are converted into numerical data to be more feasible for the mach
 ### Dropping data:
 `DateTime` features are not feasible for the model, so we proceed to drop: `date_activ,` `date_end,` `date_modif_prod,` and `date_renewal.` We also proceeded to fill out the NA with 0.
 
-Here is the final correlation heatmap: **image6**
+Here is the final correlation heatmap: 
+
+  <a href="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image6.png" target="_blank">
+    <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image6.png" alt="image6" width="1000">
+</a>
 
 ## Modeling
 ### Process:
@@ -66,13 +92,23 @@ After the feature engineering process, we are following this pipeline:
   * `net_margin`
   * `forecast_cons_12m`
   * `margin_gross_pow_ele`
-  * **image7**
+
+  <a href="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image7.png" target="_blank">
+    <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image7.png" alt="image7" width="1000">
+</a>
  
 ### Model optimization:
 The following approaches can be conducted to help improve our model:
 * **Feature Selection**: We can deliberately choose features that contribute a lot to our model in the above picture (`>=0.01`). This improves `precision` to `82.9%` but decreases `recall` to `96.7%`, which I think is worth the trade-off.
 * **PCA**: This method is relevant in reducing the dimension of our fields. With around `20-30` features, the space of `60` features can be almost `100%` explained.
-* **image8/9**
+
+  <a href="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image8.png" target="_blank">
+    <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image8.png" alt="image8" width="1000">
+</a>
+
+  <a href="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image9.png" target="_blank">
+    <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image9.png" alt="image9" width="1000">
+</a>
 
 ### Note:
 Even though the `churn` field is highly skewed, we should not oversample the minor group or undersample the majority group. While testing this approach, I was able to achieve a `95%` average accuracy rate on the cross-validation set but very poorly on the test set.
