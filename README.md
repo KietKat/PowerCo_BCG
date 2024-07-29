@@ -81,13 +81,14 @@ Here is the final correlation heatmap:
 ## Modeling
 ### Process:
 After the feature engineering process, we are following this pipeline:
-* Train-test split: We do 70-30 train-test split
-* Standardize features: This step is necessary, as even though consumptions/price fields are transformed, there is still a lot of variation.
-* Modeling: We are using a Random Forest Classifier. We are able to achieve a `91%` accuracy score on 10-fold cross-validation and `90%` on the test data.
-  * We achieve `75%` on precision, which is how well we can label `churn` customers.
+* **Train-test split**: We do 70-30 train-test split
+* **Standardize features**: This step is necessary, as even though consumptions/price fields are transformed, there is still a lot of variation.
+* **Fixing skewness**: Our data is highly skewed with **90%** `non-churn` vs **10%** `churn`. This will make the prediction highly lean towards the `non-chun` side.
+* **Modeling**: We are using a Random Forest Classifier. We are able to achieve a **95%** accuracy score on 10-fold cross-validation and **43%** on the test data.
+  * We achieve **11%** on precision, which is how well we can label `churn` customers, and **68.58%**. F1-score is **19.45%**
   * In this task, I believe `recall` is a better metric to evaluate our model, as it does not hurt to misclassify `non-churn` customers to `churn` customers.
-  * F1-score is `0.0402`, which is super good.
-* Feature Importance: After training our model, we can find the importance of each feature in helping the model correctly predict `churn.` The top 5 driving factors are:
+  * Based on the evaluation metrics, our model is doing very well in cross-validation but extremely poor on the test set. I believe the reason is **overfitting** due to the high-dimension feature space.
+* **Feature Importance**: After training our model, we can find the importance of each feature in helping the model correctly predict `churn.` The top 5 driving factors are:
   * `cons_12m`
   * `forecast_meter_rent_12m`
   * `net_margin`
@@ -100,8 +101,11 @@ After the feature engineering process, we are following this pipeline:
  
 ### Model optimization:
 The following approaches can be conducted to help improve our model:
-* **Feature Selection**: We can deliberately choose features that contribute a lot to our model in the above picture (`>=0.01`). This improves `precision` to `82.9%`.
+* **Feature Selection**: We can deliberately choose features that contribute a lot to our model in the above picture (`>=0.015`)
+  * Performance significantly increases, with **82.55%** accuracy, **80%** precision, **86.99%** recall and **83.35%** F1 score
+  * This proves that the problem we had earlier with our model was due to overfitting.
 * **PCA**: This method is relevant in reducing the dimension of our fields. With around `20-30` features, the space of `60` features can be almost `100%` explained.
+  * Performance again sees a huge increases, with **93.02%** accuracy, **91.61%** precision, **91.61%** recall and **93.17%** F1 score
 
   <a href="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image8.png" target="_blank">
     <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image8.png" alt="image8" width="1000">
@@ -111,14 +115,10 @@ The following approaches can be conducted to help improve our model:
     <img src="https://github.com/KietKat/PowerCo_BCG/blob/master/BCG_image/image9.png" alt="image9" width="1000">
 </a>
 
-### Note:
-Even though the `churn` field is highly skewed, we should not oversample the minor group or undersample the majority group. While testing this approach, I was able to achieve a `95%` average accuracy rate on the cross-validation set but very poorly on the test set.
-* The reason is that we should have the assumption that `churn` rate would be much lower than `non-churn`, for the sake of the company
-* In Bayesian statistics, such "assumption" is the likelihood distribution, and if we decide to treat the `churn vs non-churn` as `50-50`, the posterior distribution will be affected
-
 ## Conclusion
 We are answering the following questions:
 * "What is the reality of `churn` customer trend?" -> It is high, at `9.7%` over `14606` customers
 * "Is price a driving factor in customer churn trend?" -> No, even though it does contribute to the trend, `price`- related features are not a driving factor
 * "What are the driving factors?" -> `cons_12m`,`forecast_meter_rent_12m`,`net_margin`, `forecast_cons_12m`, `margin_gross_pow_ele` are top 5 driving factors
 * "What do you suggest?" -> Offering a discount to the customer who had the above values high, as `price` does affect the `churn` rate. However, we need to target specifically valued customers in those fields to keep them!
+* **PCA** and **Feature selection** does help greatly improve our models
